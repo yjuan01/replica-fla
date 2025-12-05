@@ -5,55 +5,55 @@ function App() {
     {
       id: 1,
       name: 'Libertadores',
-      Image: '../public/images/libertadores.png',
+      icon: '/images/libertadores.jpg',
       titles: 4,
       years: '1981, 1982, 2019, 2022'
     },
     {
       id: 2,
       name: 'Campeonato Brasileiro',
-      icon: '⭐',
+      icon: '/images/CBrasileiro.png',
       titles: 9,
       years: '1980, 1982, 1983, 1987, 1992, 1999, 2009, 2019, 2025'
     },
     {
       id: 3,
       name: 'Copa do Brasil',
-      icon: '🎖️',
+      icon: '/images/copaDbrasil.webp',
       titles: 4,
       years: '1990, 2006, 2013, 2022'
     },
     {
       id: 4,
       name: 'Campeonato Carioca',
-      icon: '⚡',
+      icon: '/images/carioca.webp',
       titles: 37,
       years: '1907, 1908, 1910... (37 títulos)'
     },
     {
       id: 5,
       name: 'Recopa Sul-Americana',
-      icon: '🥇',
+      icon: '/images/recopa.png',
       titles: 1,
       years: '2023'
     },
     {
       id: 6,
       name: 'Taça Guanabara',
-      icon: '🎯',
+      icon: '/images/TG.jpg',
       titles: 24,
       years: 'Múltiplas ocasiões'
-    }
+    },
   ]
 
   return (
     <div className={styles.container}>
-      {/* Barra de Navegação */}
+
       <nav className={styles.navbar}>
         <div className={styles.navContent}>
           <div className={styles.logo}>
-            <img src="/images/flamengo.webp" className={styles.logoImg} alt="Flamengo" />
-            <p className={styles.clubName}>FLAMENGO</p>
+            <img src="/images/flamengo.webp" className={styles.logoImg} alt="" />
+            <a href="https://www.instagram.com/flamengo/" target="_blank" rel="noopener noreferrer" className={styles.clubName}>FLAMENGO</a>
           </div>
           <ul className={styles.navLinks}>
             <li><a href="#home">Início</a></li>
@@ -62,8 +62,8 @@ function App() {
           </ul>
         </div>
       </nav>
-      {/* Seção 1 - Hero com Notícia Principal */}
-      <section className={`${styles.section} ${styles.section1}`}>
+
+      <section id="home" className={`${styles.section} ${styles.section1}`}>
         <div className={styles.heroContent}>
           <div className={styles.heroText}>
             <div className={styles.badge}>FUTEBOL</div>
@@ -95,7 +95,7 @@ function App() {
       </section>
 
       {/* Seção 2 - Campeonatos Vencidos */}
-      <section className={`${styles.section} ${styles.section2}`}>
+      <section id="titulos" className={`${styles.section} ${styles.section2}`}>
         <div className={styles.championsSection}>
           <h2 className={styles.championsTitle}>Títulos e Campeonatos</h2>
           <p className={styles.championsSubtitle}>História vitoriosa do Flamengo</p>
@@ -103,7 +103,13 @@ function App() {
           <div className={styles.championsGrid}>
             {championships.map((championship) => (
               <div key={championship.id} className={styles.championshipCard}>
-                <div className={styles.cardIcon}>{championship.icon}</div>
+                <div className={styles.cardIcon}>
+                  {typeof championship.icon === 'string' && championship.icon.startsWith('/') ? (
+                    <img src={championship.icon} alt={championship.name} className={styles.iconImg} />
+                  ) : (
+                    championship.icon
+                  )}
+                </div>
                 <h3 className={styles.cardTitle}>{championship.name}</h3>
                 <div className={styles.titleCount}>
                   <span className={styles.number}>{championship.titles}</span>
@@ -116,11 +122,58 @@ function App() {
 
           <div className={styles.totalInfo}>
             <p className={styles.infoText}>
-              🎖️ <strong>Total de títulos oficiais: 77+</strong>
+              <img src="/images/trofeus.jpg" alt="" /> <strong>Total de títulos oficiais: 77+</strong>
             </p>
             <p className={styles.infoText}>
               O Flamengo é um dos clubes mais vitoriosos da história do futebol brasileiro
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Seção 3 - Contatos */}
+      <section id="contato" className={`${styles.section} ${styles.section3}`}>
+        <div className={styles.contactSection}>
+          <h2 className={styles.contactTitle}>Entre em Contato</h2>
+          <p className={styles.contactSubtitle}>Fale conosco e seja parte da torcida Rubro-Negra</p>
+          
+          <div className={styles.contactContent}>
+            <div className={styles.contactInfo}>
+              <div className={styles.infoCard}>
+                <div className={styles.infoIcon}>📧</div>
+                <h3>Email</h3>
+                <p><a href="mailto:contato@flamengo.com.br">contato@flamengo.com.br</a></p>
+              </div>
+              
+              <div className={styles.infoCard}>
+                <div className={styles.infoIcon}>📞</div>
+                <h3>Telefone</h3>
+                <p><a href="tel:+552133347777">(21) 3334-7777</a></p>
+              </div>
+              
+              <div className={styles.infoCard}>
+                <div className={styles.infoIcon}>📍</div>
+                <h3>Endereço</h3>
+                <p>Gávea - Rio de Janeiro<br />Ninho do Urubu</p>
+              </div>
+              
+              <div className={styles.infoCard}>
+                <div className={styles.infoIcon}>🌐</div>
+                <h3>Redes Sociais</h3>
+                <div className={styles.socialLinks}>
+                  <a href="https://www.instagram.com/flamengo/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                  <a href="https://www.facebook.com/flamengo" target="_blank" rel="noopener noreferrer">Facebook</a>
+                  <a href="https://www.twitter.com/flamengo" target="_blank" rel="noopener noreferrer">Twitter</a>
+                </div>
+              </div>
+            </div>
+
+            <form className={styles.contactForm}>
+              <input type="text" placeholder="Seu Nome" required />
+              <input type="email" placeholder="Seu Email" required />
+              <textarea placeholder="Sua Mensagem" rows="6" required></textarea>
+              <button type="submit" className={styles.submitButton}>Enviar Mensagem</button>
+            </form>
           </div>
         </div>
       </section>
@@ -129,4 +182,5 @@ function App() {
 }
 
 export default App
+
 
